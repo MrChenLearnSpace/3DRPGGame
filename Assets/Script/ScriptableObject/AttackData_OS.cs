@@ -1,0 +1,16 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+[CreateAssetMenu(fileName = "New Attack", menuName = "Attack/Attack Data")] 
+public class AttackData_OS : ScriptableObject
+{
+    // Start is called before the first frame update
+    public float attackRange;
+    public float skillRange;
+    public float coolDown;
+    public int minDamage;
+    public int maxDamage;
+    public float criticalMultiplier;
+    public float criticalChance;
+
+}
