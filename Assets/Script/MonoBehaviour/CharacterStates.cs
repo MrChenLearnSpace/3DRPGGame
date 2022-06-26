@@ -42,7 +42,7 @@ public class CharacterStates : MonoBehaviour
         currentHealth = Mathf.Max(0, currentHealth - damage);
        //更新UI面板
        //经验更新
-       if(isCritical) {
+       if(attack.isCritical) {
             defener.GetComponent<Animator>().SetTrigger("Hit");
         }
     }

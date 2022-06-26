@@ -12,10 +12,10 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
     public EnemyStates enemyStates;
     private NavMeshAgent agent;
     private Animator anim;
-    CharacterStates enemyStats;
+    protected CharacterStates enemyStats;
     [Header("====基础设置=====")]
     public float sightRadius;
-    private GameObject attackTarget;
+    protected GameObject attackTarget;
     public bool isGuard;
     private float speed;
     public float LookAtTime;
@@ -165,7 +165,8 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
                 break;
             case EnemyStates.DEAD:
                 coll.enabled = false;
-                agent.enabled = false;//待修改
+                //agent.enabled = false;//待修改
+                agent.radius = 0;
                 Destroy(gameObject, 2.0f);
                 break;
         }
@@ -219,8 +220,10 @@ public class EnemyController : MonoBehaviour,IEndGameObserver
         Gizmos.DrawWireSphere(transform.position, patrolRange);
     }
     void Hit() {
-        CharacterStates targetState = attackTarget.GetComponent<CharacterStates>(); 
-        targetState.TakeDamage(enemyStats, targetState);
+        if (attackTarget != null && transform.IsFacingTarget(attackTarget.transform)) {
+            CharacterStates targetState = attackTarget.GetComponent<CharacterStates>();
+            targetState.TakeDamage(enemyStats, targetState);
+        }
     }
 
     public void EndNotify() {
